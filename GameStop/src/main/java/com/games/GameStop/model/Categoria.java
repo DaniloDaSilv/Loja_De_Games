@@ -1,10 +1,13 @@
 package com.games.GameStop.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,10 +30,11 @@ public class Categoria {
 	@Size(min = 5, max = 30)
 	private String tipo;
 
-	@ManyToOne
+	@OneToMany(mappedBy = "categoria",cascade = CascadeType.ALL )
 	@JsonIgnoreProperties("categoria")
-	private Produto produto;
-
+	private List<Produto> produto;
+	
+	
 	public long getId() {
 		return id;
 	}
@@ -55,12 +59,18 @@ public class Categoria {
 		this.tipo = tipo;
 	}
 
-	public Produto getProduto() {
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+		
+	public List<Produto> getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-
+	
+	
 }
